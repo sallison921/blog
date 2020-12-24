@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<img src="{{post.header_image.url}}" >
+<h1>{{post.title}}</h1>
+<h3> br: {{post.author.first_name}} {{post.author.last_name}}</h3><br/>
+
+{{post.body | safe}}
+
+<br /> <br/>
+
+<a href="{% url 'deletePost' post.pk %}">delete</a></li>
+<a href="{%url 'allPosts' %}">Back</a>
+
+{% endblock %}

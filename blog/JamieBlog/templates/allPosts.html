@@ -1,0 +1,29 @@
+{% extends 'base.html'%}
+{% block content %}
+
+<h1> Articles</h1>
+<hr/>
+
+{% for post in object_list %}
+<div class="card" style="width: 45rem;">
+        {% if post.header_image %}
+        <img src="{{post.header_image.url}}" class="card-img-top" alt="help"/>
+        {% endif %}
+        <div class="card-body">
+          <h5 class="card-title">{{post.title}}</h5>
+          <h6 class="card-subtitle mb-2 text-muted">{{post.date}} | by: {{post.author.first_name}} {{post.author.last_name}}</h6>
+          <p class="card-text">{{post.body|truncatewords:50 | safe}}</p>
+          <a href="{% url 'article' post.pk %}" class="btn btn-outline-primary">Read More</a>
+          <a href="{% url 'updatePost' post.pk %}" class="btn btn-outline-secondary" >edit</a>
+          <a href="{% url 'deletePost' post.pk %}" class="btn btn-outline-secondary" >delete</a>
+          
+        </div>
+      </div>
+
+   
+
+{% endfor%}
+
+
+  
+   {% endblock %}

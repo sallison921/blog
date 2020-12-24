@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    
+<h1> update post</h1>
+<form method="POST">
+    {% csrf_token %}
+    {{ form.media}}
+    {{ form.as_p}}
+    <button>Update</button>
+</form>
+<br /> <br/>
+<a href="{% url 'deletePost' post.pk %}">delete</a></li>
+<a href="{%url 'allPosts' %}">Back</a>
+
+{% endblock %}
