@@ -3,14 +3,16 @@
 {% block content %}
     
 <h1> add post</h1>
+<hr />
 <form method="POST" enctype ="multipart/form-data">
     {% csrf_token %}
     {{ form.media}}
     {{ form.as_p}}
-    <button>Post</button>
+    <a href ="{%url 'allPosts' %}" class="btn btn-outline-secondary">Back</a>
+    <button class="btn btn-outline-primary"> Post</button>
 </form>
 <br /> <br/>
 
-<a href="{%url 'allPosts' %}">Back</a>
+
 
 {% endblock %}

@@ -5,22 +5,55 @@
 <hr/>
 
 {% for post in object_list %}
-<div class="card" style="width: 45rem;">
+<br/>
+
+
+<div class="card" style="width: 45rem;" >
         {% if post.header_image %}
-        <img src="{{post.header_image.url}}" class="card-img-top" alt="help"/>
+        <img src="{{ post.header_image.url|default_if_none:'#' }}" class="card-img-top" alt=" "/>
         {% endif %}
+        
         <div class="card-body">
           <h5 class="card-title">{{post.title}}</h5>
           <h6 class="card-subtitle mb-2 text-muted">{{post.date}} | by: {{post.author.first_name}} {{post.author.last_name}}</h6>
           <p class="card-text">{{post.body|truncatewords:50 | safe}}</p>
           <a href="{% url 'article' post.pk %}" class="btn btn-outline-primary">Read More</a>
           <a href="{% url 'updatePost' post.pk %}" class="btn btn-outline-secondary" >edit</a>
-          <a href="{% url 'deletePost' post.pk %}" class="btn btn-outline-secondary" >delete</a>
-          
+          <!-- <a href="{% url 'deletePost' post.pk %}" class="btn btn-outline-secondary" >delete</a> -->
+          <button class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+           delete
+          </button>
+        </div>
+   
+
+      
+      <!-- Modal -->
+      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Delete?</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                    <h3> delete {{post.title}}?</h3>
+                    <form action="{% url 'deletePost' post.pk %}" method="POST">
+                        {% csrf_token %}
+                        <button class="btn btn-outline-primary">delete</button>
+                
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                </form>
+                <br/>
+            </div>
+            
+          </div>
         </div>
       </div>
+        
+      </div>
 
-   
+
+
 
 {% endfor%}
 

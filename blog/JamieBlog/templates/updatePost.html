@@ -7,10 +7,14 @@
     {% csrf_token %}
     {{ form.media}}
     {{ form.as_p}}
-    <button>Update</button>
+    <a href="{%url 'allPosts' %}" class="btn btn-outline-secondary">Cancel</a>
+    <button class="btn btn-outline-primary">Update</button>
 </form>
 <br /> <br/>
-<a href="{% url 'deletePost' post.pk %}">delete</a></li>
-<a href="{%url 'allPosts' %}">Back</a>
+
+
+
+
+
 
 {% endblock %}

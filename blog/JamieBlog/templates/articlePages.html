@@ -1,15 +1,47 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<img src="{{post.header_image.url}}" >
+<div style="width: 45rem;" >
 <h1>{{post.title}}</h1>
-<h3> br: {{post.author.first_name}} {{post.author.last_name}}</h3><br/>
-
+<small> by: {{post.author.first_name}} {{post.author.last_name}} | {{post.date}}</small>
+<hr />
+{% if post.header_image %}
+<img src="{{ post.header_image.url|default_if_none:'#' }}" class="card-img-top" alt=" "/>
+<br> </br>
+{% endif %}
 {{post.body | safe}}
 
-<br /> <br/>
+<br> </br>
 
-<a href="{% url 'deletePost' post.pk %}">delete</a></li>
-<a href="{%url 'allPosts' %}">Back</a>
+<a href="{%url 'allPosts' %}" class="btn btn-outline-primary" >Back</a>
+<button class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        delete
+       </button>
+    </li>
+
+<br/>
+</div>
+ <!-- Modal -->
+ <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Delete?</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                    <h3> delete {{post.title}}?</h3>
+                    <form action="{% url 'deletePost' post.pk %}" method="POST">
+                        {% csrf_token %}
+                        <button class="btn btn-outline-primary">delete</button>
+                
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                </form>
+                <br/>
+            </div>
+            
+          </div>
+        </div>
+      </div>
 
 {% endblock %}
